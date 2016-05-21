@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>服务器登录</title>
+	<link rel="stylesheet" type="text/css" href="libs/easyui/themes/default/easyui.css">
+	<link rel="stylesheet" type="text/css" href="libs/easyui/themes/icon.css">
+	<link rel="stylesheet" type="text/css" href="libs/easyui/demo.css">
+	<script type="text/javascript" src="libs/easyui/jquery.min.js"></script>
+	<script type="text/javascript" src="libs/easyui/jquery.easyui.min.js"></script>
+</head>
+<body>
+	<h2>服务器选择</h2>
+	<div style="margin:20px 0;"></div>
+	<div class="easyui-panel" title="服务器" style="width:400px">
+		<div>
+	    <form id="id-ui-server" method="get" action="login.html">
+	    	<table cellpadding="5">
+	    		<tr>
+	    			<td>服务器:</td>
+	    			<td>
+	    			    <input class="easyui-textbox" type="text" name="fssrv" data-options="required:true"></input>
+	    			</td>
+	    		</tr>
+	    	</table>
+	    	<tr>
+                <div style="text-align:center;padding:5px">
+                    <input type="submit" value="Submit" />
+                </div>
+            </tr>
+	    </form>
+
+	    </div>
+	</div>
+	<script>
+	</script>
+</body>
+</html>

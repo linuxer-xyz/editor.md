@@ -8,12 +8,6 @@ var m_file_name = null;
 var m_file_data = {name: m_file_name, last: "", data: ""};
 var m_file_list = {items: []};
 
-// 数据url TODO
-var m_url_fileget = "/editor/file_get";
-var m_url_filesave = "/editor/file_save";
-var m_url_filelist = "/editor/file_list";
-
-
 
 /* 登录处理流程 */
 function editor_proc_login() {

@@ -11,13 +11,18 @@ function url_get_query(name)
 // 定义路径, 目的能够兼容node-webkit
 function url_path_def(path) 
 {
-	return url_get_query('url_base') + path;
+    a_base = url_get_query('fssrv');
+    
+    return a_base + path;
 }
 
 // login相关配置
-var g_login_auth = url_path_def("/auth/login");
-var g_login_main = url_path_def("editor_main.html");
+var g_login_main = "editor_main.html" + "?fssrv=" + url_get_query('fssrv');
+var g_editor_main = "editor-md.html" + "?fssrv=" + url_get_query('fssrv');
 
 // 获取文件列表
-m_editor_flist = url_path_def("/editor/file_list");
+var g_login_auth = url_path_def("/auth/login");
+var m_editor_flist = url_path_def("/editor/file_list");
+var m_url_fileget = url_path_def("/editor/file_get");
+var m_url_filesave = url_path_def("/editor/file_save");
 

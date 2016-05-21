@@ -12,7 +12,7 @@ function easyui_tab_new() {
     $('#id-ui-table').tabs('add',{
         title: a_title,
         height: '800',
-        content: '<iframe style="width:100%;" frameborder=0 height=800 src=editor-md.html?fsname=' + a_title + '></frame>',
+        content: '<iframe style="width:100%;" frameborder=0 height=800 src=' + g_editor_main + '&fsname=' + a_title + '></frame>',
         closable: true
     });		
     
@@ -26,7 +26,7 @@ function easyui_tab_addmd(a_title) {
     $('#id-ui-table').tabs('add',{
         title: a_title,
         height: "auto",
-        content: '<iframe style="width:100%;" frameborder=0 height=800 src=editor-md.html?fsname=' + a_title + '></frame>',
+        content: '<iframe style="width:100%;" frameborder=0 height=800 src=' + g_editor_main + '&fsname=' + a_title + '></frame>',
         closable: true
     });
 }
