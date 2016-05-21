@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>Full Layout - jQuery EasyUI Demo</title>
+	<link rel="stylesheet" type="text/css" href="libs/easyui/themes/default/easyui.css">
+	<link rel="stylesheet" type="text/css" href="libs/easyui/themes/icon.css">
+	<link rel="stylesheet" type="text/css" href="libs/easyui/demo.css">
+	<script type="text/javascript" src="libs/easyui/jquery.min.js"></script>
+	<script type="text/javascript" src="libs/easyui/jquery.easyui.min.js"></script>
+
+	<script type="text/javascript" src="editor/url_cfg.js"></script>
+	<script type="text/javascript" src="editor/editor_easyui.js"></script>
+</head>
+
+<body class="easyui-layout">
+	<div data-options="region:'west',split:true,title:'文件列表'" style="width:150px">
+        <div class="easyui-accordion" style="width:100%">
+            <div title="文件列表">文件列表 @TODO TREE 
+                <ul class="easyui-tree" data-options="animate:true" id="id-ui-fl"></ul>
+            </div>
+            
+            <div title="帮助"> 帮助 @TOOD @TODO MARKDOW</div>
+           
+		
+        </div>
+	</div>
+
+	<div data-options="region:'center',title:'编辑器'">
+	    <div id="id-ui-table" class="easyui-tabs" data-options="tools:'#tab-tools'" style="height:auto">
+	        <div id="tab-tools">
+		    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-add'" onclick="easyui_tab_new()"></a>
+		    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-remove'" onclick="removePanel()"></a>	  
+		    </div>  
+	    </div>
+
+	    <script type="text/javascript">
+		    var index = 0;
+		    function addPanel(){
+			    index++;
+			    $('#id-ui-table').tabs('add',{
+				    title: 'Tab'+index,
+				    height: "auto",
+				    content: '<div >Content'+index+'</div>',
+				    closable: true
+			    });
+		    }
+		    function removePanel(){
+			    var tab = $('#tt').tabs('getSelected');
+			    if (tab){
+				    var index = $('#tt').tabs('getTabIndex', tab);
+				    $('#tt').tabs('close', index);
+			    }
+		    }
+	    </script>
+		    
+	</div>
+
+	<div data-options="region:'east',split:true,collapsed:true,title:'详细信息'" style="width:100px;padding:10px;">
+	</div>
+
+</body>
+
+</html>
