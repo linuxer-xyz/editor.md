@@ -7,7 +7,7 @@ function easyui_tab_load() {
     $.get(
         m_editor_flist + "?dataonly=1",
         function(md) {
-            $('#id-ui-fl').tree({data:md});
+            $('#id-ui-fl').tree({md});
         }
     );
 }
@@ -45,10 +45,17 @@ function easyui_tab_addmd(a_title) {
 }
 
 function easyui_event_click(node) {
-	easyui_tab_addmd(node.id);
+    if (node.id != "") {
+    	easyui_tab_addmd(node.id);
+    }
 }
 
-  
+// 面板变化时候的处理
+function easyui_event_frmchg(region)
+{
+     $('#id-ui-table').tabs('resize', {});
+}
+
 // 初始化easyui
 function editor_easyui_init() 
 {
@@ -58,6 +65,9 @@ function editor_easyui_init()
 		method: 'get',
 		onClick: easyui_event_click
 	});
+	
+	$('#ui-id-frm').layout({'onExpand': easyui_event_frmchg});
+    $('#ui-id-frm').layout({'onCollapse': easyui_event_frmchg});
 }
 
         
