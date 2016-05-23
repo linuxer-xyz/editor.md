@@ -21,6 +21,9 @@
                 <ul class="easyui-tree" data-options="animate:true" id="id-ui-fl"></ul>
                 
                 <div id="easyui-id-flmenu" class="easyui-menu" style="width:120px;">
+                    <div onclick="flmenu_do_newdir()" data-options="iconCls:'icon-add'">New-Dir</div>
+                    <div onclick="flmenu_do_newfile()" data-options="iconCls:'icon-add'">New-File</div>
+                    <div class="menu-sep"></div>
                     <div onclick="flmenu_do_refesh()" data-options="iconCls:'icon-add'">Refresh</div>
                     <div class="menu-sep"></div>
 		            <div onclick="flmenu_do_append()" data-options="iconCls:'icon-add'">Append</div>
