@@ -3,6 +3,7 @@
 var m_easy_flobj = "";
 var m_tab_cnt = 0;
 
+// 重新加载菜单
 function easyui_tab_load() {
     $.get(
         m_editor_flist + "?dataonly=1",
@@ -12,13 +13,18 @@ function easyui_tab_load() {
     );
 }
 
+// 创建新的标签
 function easyui_tab_new() {
     m_tab_cnt++;
     a_title = "new" + m_tab_cnt;
     
     a_name = prompt("请输入文件名:");
     if (a_name) {
-        a_title = a_name;
+        if (a_name != "") {
+            a_title = a_name;
+        }
+    } else {
+        return;
     }
     
     $('#id-ui-table').tabs('add',{
@@ -33,8 +39,8 @@ function easyui_tab_new() {
             
 }
 
-
-function easyui_tab_addmd(a_title) {    
+// 打开已有标签
+function easyui_tab_open(a_title) {    
     $('#id-ui-table').tabs('add',{
         title: a_title,
         height: "auto",
@@ -44,18 +50,47 @@ function easyui_tab_addmd(a_title) {
     
 }
 
-function easyui_event_click(node) {
+
+/* 文件列表模块 */
+// 文件列表树单击
+function easyui_fltree_click(node) {
     if (node.id != "") {
-    	easyui_tab_addmd(node.id);
+    	easyui_tab_open(node.id);
     }
 }
 
+
+/* 面板模块 */
 // 面板变化时候的处理
 function easyui_event_frmchg(region)
 {
      $('#id-ui-table').tabs('resize', {});
 }
 
+// 展开动作
+function flmenu_do_expand() {
+    var node = $('#id-ui-fl').tree('getSelected');
+    $('#id-ui-fl').tree('expand',node.target);
+}
+
+
+// 折叠动作
+function flmenu_do_collapse() {
+    var node = $('#id-ui-fl').tree('getSelected');
+    $('#id-ui-fl').tree('collapse',node.target);
+}
+
+// 刷新文件夹
+function flmenu_do_refesh() {
+    $.get(
+        m_editor_flist + "?dataonly=1",
+        function(md) {
+            $('#id-ui-fl').tree({md});
+        }
+    );    
+}
+
+/* 初始化模块 */
 // 初始化easyui
 function editor_easyui_init() 
 {
@@ -63,7 +98,18 @@ function editor_easyui_init()
 		url: m_editor_flist + "?dataonly=1",
 		// url: 'tree_data1.json',
 		method: 'get',
-		onClick: easyui_event_click
+		onClick: easyui_fltree_click,
+        onContextMenu: function(e, node){
+		    e.preventDefault();
+		    // select the node
+		    $('#id-ui-fl').tree('select', node.target);
+		    // display context menu
+		    $('#easyui-id-flmenu').menu('show', {
+			    left: e.pageX,
+			    top: e.pageY
+		    });
+	    }
+	
 	});
 	
 	$('#ui-id-frm').layout({'onExpand': easyui_event_frmchg});

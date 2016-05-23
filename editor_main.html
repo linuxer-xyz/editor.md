@@ -19,6 +19,17 @@
         <div class="easyui-accordion" style="width:100%">
             <div title="文件列表">
                 <ul class="easyui-tree" data-options="animate:true" id="id-ui-fl"></ul>
+                
+                <div id="easyui-id-flmenu" class="easyui-menu" style="width:120px;">
+                    <div onclick="flmenu_do_refesh()" data-options="iconCls:'icon-add'">Refresh</div>
+                    <div class="menu-sep"></div>
+		            <div onclick="flmenu_do_append()" data-options="iconCls:'icon-add'">Append</div>
+		            <div onclick="flmenu_do_remove()" data-options="iconCls:'icon-remove'">Remove</div>
+		            <div class="menu-sep"></div>
+		            <div onclick="flmenu_do_expand()">Expand</div>
+		            <div onclick="flmenu_do_collapse()">Collapse</div>
+                </div>
+	
             </div>
             
             <div title="帮助"> 帮助 @TOOD @TODO MARKDOW</div>
