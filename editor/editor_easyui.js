@@ -90,6 +90,28 @@ function flmenu_do_refesh() {
     );    
 }
 
+// 新增文件夹
+function flmenu_do_newdir() {
+    var node = $('#id-ui-fl').tree('getSelected');
+    if (!node.dir) {
+        return
+    } 
+    
+    alert("new dir");
+}
+
+
+function flmenu_do_newfile() {
+    var node = $('#id-ui-fl').tree('getSelected');
+    if (!node.dir) {
+        return
+    } 
+    
+    alert("new md");
+}
+
+
+
 /* 初始化模块 */
 // 初始化easyui
 function editor_easyui_init() 
