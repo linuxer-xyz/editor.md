@@ -27,3 +27,5 @@ var m_editor_floper = url_path_def("/editor/flist_oper");	// 文件列表操作
 var m_url_fileget = url_path_def("/editor/file_get");
 var m_url_filesave = url_path_def("/editor/file_save");
 var m_url_imgsave = url_path_def("/editor/img_save");
+var m_url_imgget = url_path_def("/editor/img_get");     // 获取图像列表
+
