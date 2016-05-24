@@ -43,6 +43,44 @@ function extmd_load_cback() {
 }
 
 
+function md_paste_event(e) {
+	var clipboardData = e.clipboardData,//谷歌
+		i = 0,
+		items, item, types;
+
+	if( clipboardData ){
+		items = clipboardData.items;
+		if(!items){
+		    return;
+		}
+		types = clipboardData.types || [];
+		for( ; i < types.length; i++ ){
+		    if( types[i] === 'Files' ){
+
+		        item = items[i];
+				if( item && item.kind === 'file' && item.type.match(/^image\//i) ){
+					var reader = new FileReader();
+					reader.onload = function(e){
+						a_data = {paste : 1, 'editormd-image-file': e.target.result};
+						var img = new Image();
+						img.src = e.target.result;
+						console.log(img);
+						$.post(
+							m_url_imgsave,
+							a_data,
+							function(ret) {
+								g_md_editor.insertValue("![" + "" + "](" + ret.url + ")");
+								
+							}
+						);
+					};
+					reader.readAsDataURL(item.getAsFile());
+				}				        
+		        break;
+		    }
+		}
+	 }
+}
 
 var g_md_load_cback = extmd_load_cback;
 
@@ -96,6 +134,8 @@ function md_ext_load() {
         }
     );
     
+    // $("#id-editor-md").on('paste', md_paste_event);
+    document.getElementById('id-editor-md').addEventListener('paste', md_paste_event);
 }
 
 
