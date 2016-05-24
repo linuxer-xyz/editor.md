@@ -2000,6 +2000,7 @@
                 flowChart            : settings.flowChart,
                 sequenceDiagram      : settings.sequenceDiagram,
                 previewCodeHighlight : settings.previewCodeHighlight,
+                imageShowUrl		 : settings.imageShowUrl,
             };
             
             var markedOptions = this.markedOptions = {
@@ -3479,7 +3480,20 @@
 
             return text;
         };
+		
 
+		markedRenderer.image = function(href, title, text) {
+			if (settings.imageShowUrl != "" ) {
+				href = settings.imageShowUrl + "/" + href;
+			}
+			var out = '<img src="' + href + '" alt="' + text + '"';
+			if (title) {
+				out += ' title="' + title + '"'
+			}
+			out += this.options.xhtml ? "/>" : ">";
+			return out
+		};
+    		
         markedRenderer.atLink = function(text) {
 
             if (atLinkReg.test(text))
@@ -3944,6 +3958,7 @@
             flowChart            : settings.flowChart,
             sequenceDiagram      : settings.sequenceDiagram,
             previewCodeHighlight : settings.previewCodeHighlight,
+            imageUploadURL 		 : imageUploadURL
         };
 
         var markedOptions = {

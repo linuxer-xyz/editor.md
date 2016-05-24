@@ -70,7 +70,8 @@ function md_ext_load() {
             imageUpload : true,
             imageFormats : ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
             imageUploadURL : m_url_imgsave,
-            
+            imageShowUrl		: url_path_def(""),
+                    
             /* 自定义工具栏 */
             toolbarIcons : function() {
                 a_tool_cust = ['fnew', "|", 'fsave', "|"];
