@@ -90,6 +90,27 @@ function flmenu_do_refesh() {
     );    
 }
 
+// 通用的新增操作
+function flmenu_do_newoper(type, dir, name) {
+
+    var a_oper = {oper: type, curdir: dir, name: name};
+    $.post (
+    	m_editor_floper,
+    	a_oper,
+    	function (ret) {
+    		if (ret.code == -2) {
+    			// 未登录
+    		}
+    		
+    		if (ret.code == 0) {
+    			// 添加成功, 重新刷新
+    			flmenu_do_refesh();
+    		} 
+    	}
+    );
+}
+
+
 // 新增文件夹
 function flmenu_do_newdir() {
     var node = $('#id-ui-fl').tree('getSelected');
@@ -97,17 +118,38 @@ function flmenu_do_newdir() {
         return
     } 
     
-    alert("new dir");
+    
+    a_name = prompt("请输入文件夹名:");
+    if (!a_name) {
+    	return
+    }
+    
+    if (a_name == "") {
+    	return;
+    	alert("文件空, 添加失败");
+    }
+    
+    flmenu_do_newoper("adddir", node.dir, a_name);
 }
 
-
+// 新增文件
 function flmenu_do_newfile() {
     var node = $('#id-ui-fl').tree('getSelected');
     if (!node.dir) {
         return
     } 
+    	
+    a_name = prompt("请输入文件名:");
+    if (!a_name) {
+    	return
+    }
     
-    alert("new md");
+    if (a_name == "") {
+    	return;
+    	alert("文件空, 添加失败");
+    }
+    
+    flmenu_do_newoper("addfile", node.dir, a_name);
 }
 
 

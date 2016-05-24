@@ -23,6 +23,7 @@ var g_editor_main = "editor-md.html" + "?fssrv=" + url_get_query('fssrv');
 // 获取文件列表
 var g_login_auth = url_path_def("/auth/login");
 var m_editor_flist = url_path_def("/editor/file_list");
+var m_editor_floper = url_path_def("/editor/flist_oper");	// 文件列表操作
 var m_url_fileget = url_path_def("/editor/file_get");
 var m_url_filesave = url_path_def("/editor/file_save");
 
