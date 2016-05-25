@@ -41,10 +41,41 @@ function easyui_tab_new() {
 
 // 打开已有标签
 function easyui_tab_open(a_title) {    
+	var a_tab = $('#id-ui-table').tabs('getTab', a_title);
+	var a_sub = "";
+	var a_page = "";
+	
+	// 如果当前tab已经被打开, 聚焦并返回
+	if (a_tab) {
+		$('#id-ui-table').tabs('select', a_title)
+		return;
+	}
+	
+	// 计算 sub
+	a_index = a_title.lastIndexOf(".")
+	if (a_index == -1) {
+		a_sub = "";
+	} else {
+		a_sub = a_title.substr(a_index);
+	}
+	
+	// 持续名对应的编辑器
+	if (a_sub == ".md" ) {
+		a_page = g_editor_main;
+	}
+	
+	if (a_page == "") {
+		if (!confirm("强制用markdown编辑器?")) {
+			return;
+		}
+		
+		a_page = g_editor_main;
+	}
+	
     $('#id-ui-table').tabs('add',{
         title: a_title,
         height: "auto",
-        content: '<iframe style="width:100%;" frameborder=0 height=800 src=' + g_editor_main + '&fsname=' + a_title + '></frame>',
+        content: '<iframe style="width:100%;" frameborder=0 height=800 src=' + a_page + '&fsname=' + a_title + '></frame>',
         closable: true
     });
     
@@ -132,8 +163,8 @@ function flmenu_do_newdir() {
     flmenu_do_newoper("adddir", node.dir, a_name);
 }
 
-// 新增文件
-function flmenu_do_newfile() {
+// 新增markdown文件
+function flmenu_do_newmd() {
     var node = $('#id-ui-fl').tree('getSelected');
     if (!node.dir) {
         return
@@ -149,7 +180,7 @@ function flmenu_do_newfile() {
     	alert("文件空, 添加失败");
     }
     
-    flmenu_do_newoper("addfile", node.dir, a_name);
+    flmenu_do_newoper("addfile", node.dir, a_name + ".md");
 }
 
 
