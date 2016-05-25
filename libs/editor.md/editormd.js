@@ -3483,8 +3483,15 @@
 		
 
 		markedRenderer.image = function(href, title, text) {
+			var a_mysrv = 1;
 			if (settings.imageShowUrl != "" ) {
-				href = settings.imageShowUrl + "/" + href;
+				if (href.indexOf("http") == 0) {
+					a_mysrv = 0;
+				}
+				
+				if (a_mysrv) { 
+					href = settings.imageShowUrl + "/" + href;
+				}
 			}
 			var out = '<img src="' + href + '" alt="' + text + '"';
 			if (title) {
