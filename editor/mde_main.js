@@ -92,9 +92,9 @@ function md_ext_load() {
             width   : "100%",
             height  : "750",
             // autoHeight : true,
-            syncScrolling : "single",
+            syncScrolling : "true",
             saveHTMLToTextarea : true,    // 保存 HTML 到 Textarea
-            editorTheme : "pastel-on-dark",
+            editorTheme : "mbo",
             codeFold : true,
             saveHTMLToTextarea : true,    // 保存 HTML 到 Textarea
             searchReplace : true,
@@ -125,7 +125,6 @@ function md_ext_load() {
             
             path    : "libs/editor.md/lib/",
             onload: function () {
-                this.setMarkdown("hexxllo");
 
 				this.addKeyMap(g_md_keymap);
 				
