@@ -2001,6 +2001,7 @@
                 sequenceDiagram      : settings.sequenceDiagram,
                 previewCodeHighlight : settings.previewCodeHighlight,
                 imageShowUrl		 : settings.imageShowUrl,
+                sline2space             : settings.sline2space,
             };
             
             var markedOptions = this.markedOptions = {
@@ -3481,7 +3482,26 @@
             return text;
         };
 		
-
+        // 增加控制行数的
+        markedRenderer.br = function() {
+            if (settings.sline2space) {
+                return " ";
+            } else {
+                return this.options.xhtml ? "<br/>" : "<br>" 
+            }
+        }
+        
+        // 增加行内代码的
+        markedRenderer.codespan = function(text) {
+            if (text == "markdown:nonl") {
+                // 用于配置无新行模式
+                settings.sline2space = true;
+                return ""
+            } else {
+                return "<code>" + text + "</code>"
+            }
+        }
+        
 		markedRenderer.image = function(href, title, text) {
 			var a_mysrv = 1;
 			if (settings.imageShowUrl != "" ) {
@@ -3641,7 +3661,6 @@
         };
 
         markedRenderer.code = function (code, lang, escaped) { 
-
             if (lang === "seq" || lang === "sequence")
             {
                 return "<div class=\"sequence-diagram\">" + code + "</div>";
