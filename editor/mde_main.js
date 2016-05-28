@@ -10,6 +10,8 @@ var g_md_keymap =  {
     "Ctrl-N": function(cm) {
         $("#id-editor-new").click();
     },        
+    
+    "Alt-G": this.watch,
 };
 
 
@@ -88,6 +90,7 @@ var g_md_load_cback = extmd_load_cback;
 function md_ext_load() {
     g_md_editor = editormd("id-editor-md", 
         {
+            watch : false,
             maximize: true,
             width   : "100%",
             height  : "750",
@@ -113,7 +116,15 @@ function md_ext_load() {
             /* 自定义工具栏 */
             toolbarIcons : function() {
                 a_tool_cust = ['fnew', "|", 'fsave', "|"];
-                a_tool_bar = a_tool_cust.concat(editormd.toolbarModes['full']);
+                a_tool_my = ["undo", "redo", 
+                            "|", "bold", "del", "italic", "quote",
+                            "|", "h1", "h2", "h3", "h4", "h5", "h6",
+                            "|", "list-ul", "list-ol", "hr",
+                            "|","link", "reference-link", "image", "code", "preformatted-text", "code-block", "table", "datetime",
+                            "|","watch", "preview", "fullscreen",
+                            "|","goto-line", "search"
+                            ]
+                a_tool_bar = a_tool_cust.concat(a_tool_my);
 
                 return a_tool_bar;
             },
@@ -133,6 +144,7 @@ function md_ext_load() {
         }
     );
     
+    g_md_editor.fullscreen();   // 默认全屏
     // $("#id-editor-md").on('paste', md_paste_event);
     document.getElementById('id-editor-md').addEventListener('paste', md_paste_event);
 }

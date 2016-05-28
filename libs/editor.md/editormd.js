@@ -3299,6 +3299,7 @@
         "F9"               : "watch",
         "F10"              : "preview",
         "F11"              : "fullscreen",
+        "Alt-G"               : "watch",
     };
     
     /**
