@@ -15,30 +15,20 @@
 </head>
 
 <body class="easyui-layout" id="ui-id-frm">
-	<div data-options="region:'west',split:true,title:'文件列表'" style="width:150px">
-        <div class="easyui-accordion" style="width:100%">
-            <div title="文件列表">
-                <ul class="easyui-tree" data-options="animate:true" id="id-ui-fl"></ul>
-                
-                <div id="easyui-id-flmenu" class="easyui-menu" style="width:120px;">
-                    <div onclick="flmenu_do_newdir()" data-options="iconCls:'icon-add'">New-Dir</div>
-                    <div onclick="flmenu_do_newmd()" data-options="iconCls:'icon-add'">New-Md</div>
-                    <div class="menu-sep"></div>
-                    <div onclick="flmenu_do_refesh()" data-options="iconCls:'icon-add'">Refresh</div>
-                    <div class="menu-sep"></div>
-		            <div onclick="flmenu_do_append()" data-options="iconCls:'icon-add'">Append</div>
-		            <div onclick="flmenu_do_remove()" data-options="iconCls:'icon-remove'">Remove</div>
-		            <div class="menu-sep"></div>
-		            <div onclick="flmenu_do_expand()">Expand</div>
-		            <div onclick="flmenu_do_collapse()">Collapse</div>
-                </div>
-	
-            </div>
+	<div data-options="region:'west',split:true,title:'文件列表'" style="width:150px">            
+            <ul class="easyui-tree" data-options="animate:true" id="id-ui-fl"></ul>
             
-            <div title="帮助"> 帮助 @TOOD @TODO MARKDOW</div>
-           
-		
-        </div>
+            <div id="easyui-id-flmenu" class="easyui-menu" style="width:120px;">
+                <div onclick="flmenu_do_newdir()" data-options="iconCls:'icon-add'">New-Dir</div>
+                <div onclick="flmenu_do_newmd()" data-options="iconCls:'icon-add'">New-Md</div>
+                <div class="menu-sep"></div>
+                <div onclick="flmenu_do_refesh()" data-options="iconCls:'icon-add'">Refresh</div>
+                <div class="menu-sep"></div>
+	            <div onclick="flmenu_do_remove()" data-options="iconCls:'icon-remove'">Remove</div>
+	            <div class="menu-sep"></div>
+	            <div onclick="flmenu_do_expand()">Expand</div>
+	            <div onclick="flmenu_do_collapse()">Collapse</div>
+            </div>
 	</div>
 
 	<div data-options="region:'center',title:'编辑区'">
@@ -71,7 +61,13 @@
 		    
 	</div>
 
-	<div data-options="region:'east',split:true,collapsed:true,title:'详细信息'" style="width:100px;padding:10px;">
+	<div data-options="region:'east',split:true,collapsed:true,title:'功能区'" style="width:100px;padding:0px;">
+	    <div class="easyui-accordion" style="width:100%" id="id-ui-fun" style="width:100%;">
+            <ul class="easyui-datalist" title="用户管理"  id="id-ui-user">
+            </ul>
+            
+	        <div title="帮助"> 帮助 @TOOD @TODO MARKDOW</div>
+	    </div>
 	</div>
 
 </body>

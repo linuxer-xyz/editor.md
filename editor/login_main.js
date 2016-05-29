@@ -3,12 +3,14 @@
 function login_submit_proc(){
 	var uname = $.trim($("#username").val());
 	var pwd = $.trim($("#password").val());
+	var server = $.trim($("#server").val());
 	
+	url_path_set(server);
 	if (uname == "" || pwd == "") {
 		alert("用户名或密码不能为空!");
 		return;
 	}
-	
+    
 	serialize_form = $("#manager_login").serialize();
 	$.ajax({
 		url: g_login_auth,
@@ -16,6 +18,8 @@ function login_submit_proc(){
 		data: serialize_form,
 		success: function(data){
 			if (data.code ==0) {
+			    g_login_main = g_login_main + "?fssrv=" + server;
+			    
 				var m_next = url_get_query('next');
 				var m_pop = url_get_query('pop');
 				if (m_next) {

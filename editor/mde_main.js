@@ -97,7 +97,7 @@ function md_ext_load() {
             // autoHeight : true,
             syncScrolling : "true",
             saveHTMLToTextarea : true,    // 保存 HTML 到 Textarea
-            editorTheme : "mbo",
+            editorTheme : "eclipse",
             codeFold : true,
             saveHTMLToTextarea : true,    // 保存 HTML 到 Textarea
             searchReplace : true,

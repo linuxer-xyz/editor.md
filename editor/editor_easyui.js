@@ -3,15 +3,7 @@
 var m_easy_flobj = "";
 var m_tab_cnt = 0;
 
-// 重新加载菜单
-function easyui_tab_load() {
-    $.get(
-        m_editor_flist + "?dataonly=1",
-        function(md) {
-            $('#id-ui-fl').tree({md});
-        }
-    );
-}
+
 
 // 创建新的标签
 function easyui_tab_new() {
@@ -34,8 +26,6 @@ function easyui_tab_new() {
         closable: true
     });		
     
-    /* 重新加载 */
-    easyui_tab_load();
             
 }
 
@@ -83,10 +73,39 @@ function easyui_tab_open(a_title) {
 
 
 /* 文件列表模块 */
+// 重新加载菜单
+function easyui_tab_load() {
+    var node = $('#id-ui-fl').tree('getSelected');
+    var g_cur_id = "";
+    
+    if (node) {
+        g_cur_id = node.id;
+    }
+    
+    $.get(
+        m_editor_flist + "?dataonly=1",
+        function(md) {
+            $('#id-ui-fl').tree({md});
+            
+            if (g_cur_id != "") {
+                // @TODO 未完成，不能切换到此目录中
+                node =  $('#id-ui-fl').tree('find', g_cur_id);
+                par = $('#id-ui-fl').tree('getParent', node.target);
+                 $('#id-ui-fl').tree('expandAll', par.target);
+                 par.state = "open";
+                 // $('#id-ui-fl').tree('reload');
+                console.log(par.target);
+            }           
+        }
+    );
+}
+
 // 文件列表树单击
 function easyui_fltree_click(node) {
     if (node.id != "") {
-    	easyui_tab_open(node.id);
+        if (!node.dir) {
+        	easyui_tab_open(node.id);
+        }
     }
 }
 
@@ -113,12 +132,7 @@ function flmenu_do_collapse() {
 
 // 刷新文件夹
 function flmenu_do_refesh() {
-    $.get(
-        m_editor_flist + "?dataonly=1",
-        function(md) {
-            $('#id-ui-fl').tree({md});
-        }
-    );    
+    easyui_tab_load();  
 }
 
 // 通用的新增操作
@@ -148,7 +162,6 @@ function flmenu_do_newdir() {
     if (!node.dir) {
         return
     } 
-    
     
     a_name = prompt("请输入文件夹名:");
     if (!a_name) {
@@ -180,10 +193,53 @@ function flmenu_do_newmd() {
     	alert("文件空, 添加失败");
     }
     
+    console.log("addfile", node.dir, a_name + ".md");
     flmenu_do_newoper("addfile", node.dir, a_name + ".md");
 }
 
+// 删除文件
+function flmenu_do_remove() {
+    var node = $('#id-ui-fl').tree('getSelected'); 
+    
+    if (!node) {
+        return;
+    }
+    
+    console.log("del", node.dir, node.id);
+    flmenu_do_newoper("del", node.dir, node.id);
+   
+}
 
+
+
+/* 功能列表菜单模板 */
+// 双击处理
+function dlfun_menu_dlclick(index,field,value){
+    if (index == 0){
+        window.location.href = "login.html"
+    }
+
+    if (index == 1){
+        window.location.href = "login.html"
+    }
+    
+    if (index == 2) {
+        window.open("login.html", value);
+    }
+}
+
+// 初始化菜单
+function dlfun_menu_init() {
+	$('#id-ui-user').datalist({
+	                            'title':'',
+	                            'data': [
+	                                        {"text":"切换用户"},
+	                                        {"text":"退出登录"}, 
+	                                        {"text":"新建登录"}
+	                                     ],
+	                            'onDblClickCell': dlfun_menu_dlclick
+	                          });
+}
 
 /* 初始化模块 */
 // 初始化easyui
@@ -193,7 +249,7 @@ function editor_easyui_init()
 		url: m_editor_flist + "?dataonly=1",
 		// url: 'tree_data1.json',
 		method: 'get',
-		onClick: easyui_fltree_click,
+		onDblClick: easyui_fltree_click,
         onContextMenu: function(e, node){
 		    e.preventDefault();
 		    // select the node
@@ -207,6 +263,7 @@ function editor_easyui_init()
 	
 	});
 	
+    dlfun_menu_init();
 	$('#ui-id-frm').layout({'onExpand': easyui_event_frmchg});
     $('#ui-id-frm').layout({'onCollapse': easyui_event_frmchg});
 }
